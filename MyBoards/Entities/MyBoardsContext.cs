@@ -21,10 +21,6 @@ namespace MyBoards.Entities
                 eb.Property(p => p.State).IsRequired();
                 eb.Property(p => p.Area).HasColumnType("varchar(200)");
                 eb.Property(p => p.IterationPath).HasColumnName("Iteration_Path");
-                eb.Property(p => p.Effort).HasColumnType("decimal(5,2)");
-                eb.Property(p => p.EndDate).HasPrecision(3);
-                eb.Property(p => p.Activity).HasMaxLength(200);
-                eb.Property(p => p.RemaningWork).HasPrecision(14, 2);
                 eb.Property(p => p.Priority).HasDefaultValue(1);
                 eb.Property(p => p.State).IsRequired().HasMaxLength(50);
 
