@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBoards.Entities;
 
@@ -11,9 +12,11 @@ using MyBoards.Entities;
 namespace MyBoards.Migrations
 {
     [DbContext(typeof(MyBoardsContext))]
-    partial class MyBoardsContextModelSnapshot : ModelSnapshot
+    [Migration("20230929121742_ViewTopAuthorsAdded")]
+    partial class ViewTopAuthorsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace MyBoards.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("MyBoards.Entities.Comment", b =>
@@ -83,7 +86,7 @@ namespace MyBoards.Migrations
 
                     b.HasIndex("WorkItemId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("MyBoards.Entities.Tag", b =>
@@ -99,7 +102,7 @@ namespace MyBoards.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
 
                     b.HasData(
                         new
@@ -143,7 +146,7 @@ namespace MyBoards.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("MyBoards.Entities.ViewModels.TopAuthor", b =>
@@ -195,7 +198,7 @@ namespace MyBoards.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WorkItems", (string)null);
+                    b.ToTable("WorkItems");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("WorkItem");
 
@@ -217,7 +220,7 @@ namespace MyBoards.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WorkItemStates", (string)null);
+                    b.ToTable("WorkItemStates");
 
                     b.HasData(
                         new
@@ -254,7 +257,7 @@ namespace MyBoards.Migrations
 
                     b.HasIndex("WorkItemId");
 
-                    b.ToTable("WorkItemTag", (string)null);
+                    b.ToTable("WorkItemTag");
                 });
 
             modelBuilder.Entity("MyBoards.Entities.Epic", b =>
@@ -303,29 +306,6 @@ namespace MyBoards.Migrations
                         .HasForeignKey("MyBoards.Entities.Address", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.OwnsOne("MyBoards.Entities.Address.Coordinate#MyBoards.Entities.Coordinate", "Coordinate", b1 =>
-                        {
-                            b1.Property<Guid>("AddressId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<decimal?>("Latitude")
-                                .HasPrecision(18, 7)
-                                .HasColumnType("decimal(18,7)");
-
-                            b1.Property<decimal?>("Longitude")
-                                .HasPrecision(18, 7)
-                                .HasColumnType("decimal(18,7)");
-
-                            b1.HasKey("AddressId");
-
-                            b1.ToTable("Addresses", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("AddressId");
-                        });
-
-                    b.Navigation("Coordinate");
 
                     b.Navigation("User");
                 });
